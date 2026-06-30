@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'views/redacteur_interface.dart'; // Importation de l'interface de l'Activité 5
 
 void main() {
   runApp(const MonAppli()); // Lancement de l'application
@@ -17,14 +18,14 @@ class MonAppli extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.pink, // Couleur principale rose demandée
       ),
-      home: const PageAccueil(), // CORRECTION : 'P' majuscule
+      home: const PageAccueil(),
     );
   }
 }
 
 // 2. Écran principal de l'application
-class PageAccueil extends StatelessWidget { // CORRECTION : 'P' majuscule
-  const PageAccueil({super.key}); // CORRECTION : 'P' majuscule
+class PageAccueil extends StatelessWidget {
+  const PageAccueil({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,31 +49,36 @@ class PageAccueil extends StatelessWidget { // CORRECTION : 'P' majuscule
         ],
       ),
       // Corps de la page avec défilement si l'écran est petit
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
             // Image principale (Couverture)
-            const Image(
+            Image(
               image: AssetImage('assets/images/magazineInfo.jpg'),
               width: double.infinity,
               fit: BoxFit.cover,
             ),
             // Appel des 4 widgets personnalisés demandés dans la partie 4.2
-            const PartieTitre(),
-            const PartieTexte(),
-            const PartieIcone(),
-            const PartieRubrique(),
+            PartieTitre(),
+            PartieTexte(),
+            PartieIcone(),
+            PartieRubrique(),
           ],
         ),
       ),
-      // Bouton flottant rose requis par l'activité 4.1
+      // Bouton flottant configuré pour naviguer vers l'Activité 5 🚀
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.pink,
         onPressed: () {
-          // Déclenche une action visible dans la console de débogage
-          debugPrint('Tu as cliqué dessus');
+          // Navigation fluide vers l'écran de gestion des rédacteurs locales
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const GestionRedacteursScreen(),
+            ),
+          );
         },
-        child: const Text('Click', style: TextStyle(color: Colors.white)), // Texte "Click"
+        child: const Icon(Icons.people, color: Colors.white), // Icône de groupe pour les rédacteurs
       ),
     );
   }
@@ -90,7 +96,7 @@ class PartieTitre extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0), // Marge de 20px
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -120,7 +126,7 @@ class PartieTexte extends StatelessWidget {
       child: const Text(
         'Magazine Infos est bien plus qu\'un simple magazine d\'informations. C\'est votre passerelle vers le monde, une source inestimable de connaissances et d\'actualités soigneusement sélectionnées pour vous éclairer sur les enjeux mondiaux, la culture, la science, et le divertissement.',
         style: TextStyle(fontSize: 14, height: 1.5),
-        textAlign: TextAlign.justify, // Texte justifié pour un rendu magazine professionnel
+        textAlign: TextAlign.justify,
       ),
     );
   }
@@ -135,9 +141,8 @@ class PartieIcone extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15.0),
       child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Espacement égal entre les icônes
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // Bouton TEL
           Column(
             children: [
               Icon(Icons.phone, color: Colors.pink),
@@ -145,7 +150,6 @@ class PartieIcone extends StatelessWidget {
               Text('TEL', style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold)),
             ],
           ),
-          // Bouton MAIL
           Column(
             children: [
               Icon(Icons.email, color: Colors.pink),
@@ -153,7 +157,6 @@ class PartieIcone extends StatelessWidget {
               Text('MAIL', style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold)),
             ],
           ),
-          // Bouton PARTAGE
           Column(
             children: [
               Icon(Icons.share, color: Colors.pink),
@@ -177,10 +180,9 @@ class PartieRubrique extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
-          // Première image de rubrique
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12.0), // Arrondir les angles à 12px
+              borderRadius: BorderRadius.circular(12.0),
               child: const Image(
                 image: AssetImage('assets/images/rubrique1.jpg'),
                 fit: BoxFit.cover,
@@ -188,8 +190,7 @@ class PartieRubrique extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 15), // Espace de séparation entre les deux images
-          // Deuxième image de rubrique
+          const SizedBox(width: 15),
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
